@@ -1,0 +1,195 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 300,
+  "height": 300,
+  "autosize": "pad",
+  "signals": [
+    {"name": "startAngle", "value": 0},
+    {"name": "endAngle", "value": 6.29},
+    {"name": "padAngle", "value": 0},
+    {"name": "sort", "value": true},
+    {"name": "strokeWidth", "value": 2},
+    {
+      "name": "selected",
+      "value": null,
+      "on": [{"events": "mouseover", "update": "datum"},
+             {"events": "mouseout", "update": "null"}]
+    }    
+  ],
+  "data": [
+    {
+      "name": "table",
+      "url": "data/worldpopulation.csv",
+      "format": {"type": "csv"},
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.Rank <= 10"
+        },        
+        {
+          "type": "pie",
+          "field": "Area (km²)",
+          "startAngle": {"signal": "startAngle"},
+          "endAngle": {"signal": "endAngle"},
+          "sort": {"signal": "sort"}
+        },
+        {
+          "type": "extent",
+          "field": "Area (km²)",
+          "signal": "extentArea"
+        }
+        
+      ]
+    },
+    {
+      "name": "fieldSum",
+      "source": "table",
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": ["Area (km²)"],
+          "ops": ["sum"],
+          "as": ["sum"]
+        }
+      ]
+    }
+    
+  ],
+  "legends": [
+    {
+      "fill": "color",
+      "title": "Top 10 Countries",
+      "orient": "none",
+      "padding": {"value": 10},
+      "encode": {
+        "symbols": {"enter": {"fillOpacity": {"value": 1}}},
+        "legend": {
+          "update": {
+            "x": {
+              "signal": "(width / 2) + if(selected && selected.continent == datum.continent, if(width >= height, height, width) / 2 * 1.1 * 0.8, if(width >= height, height, width) / 2 * 0.8)",
+              "offset": 20
+            },
+            "y": {"signal": "(height / 2)", "offset": -50}
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": [
+        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", 
+        "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+      ],
+      "domain": {
+        "data": "table",
+        "field": "Country/Territory"
+      }
+    }
+  ],
+  "marks": [
+    {
+      "type": "arc",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "fill": {"scale": "color", "field": "Country/Territory"},
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height / 2"}
+        },
+        "update": {
+          "startAngle": {"field": "startAngle"},
+          "endAngle": {"field": "endAngle"},
+          "padAngle": {
+            "signal": "if(selected && selected.continent == datum.continent, 0.015, 0.015)"
+          },
+          "innerRadius": {
+            "signal": "if(selected && selected.continent == datum.continent, if(width >= height, height, width) / 2 * 0.45, if(width >= height, height, width) / 2 * 0.5)"
+          },
+          "outerRadius": {
+            "signal": "if(selected && selected.continent == datum.continent, if(width >= height, height, width) / 2 * 1.05 * 0.8, if(width >= height, height, width) / 2 * 0.8)"
+          },
+          "opacity": {
+            "signal": "if(selected && selected.continent !== datum.continent, 1, 1)"
+          },
+          "stroke": {"signal": "scale('color', datum.continent)"},
+          "strokeWidth": {"signal": "strokeWidth"},
+          "fillOpacity": {
+            "signal": "selected ? (selected['Country/Territory'] === datum['Country/Territory'] ? 1 : 0.5) : 1"
+          },
+          "tooltip": {
+            "signal": "'Country: ' + datum['Country/Territory'] + ', ' + 'Area: ' + format(datum['Area (km²)'], ',') + ' km²' + ', ' + 'Percentage: ' + format((datum['Area (km²)'] / data('fieldSum')[0].sum) * 100, '.2f') + '%'"
+          }                    
+          
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {"fill": {"value": "#525252"}, "text": {"value": ""}},
+        "update": {
+          "opacity": {"value": 1},
+          "x": {"signal": "width / 2"},
+          "y": {"signal": "height / 2"},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "fontSize": {"signal": "if(width >= height, height, width) * 0.05"},
+          "text": {"value": "Area (km²)"}
+        }
+      }
+    },
+    {
+      "name": "mark_population",
+      "type": "text",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "text": {
+            "signal": "if(datum['endAngle'] - datum['startAngle'] < 0.3, '', format((datum['Area (km²)'] / data('fieldSum')[0].sum) * 100, '.2f') + '%')"
+          },
+          "x": {"signal": "if(width >= height, height, width) / 2"},
+          "y": {"signal": "if(width >= height, height, width) / 2"},
+          "radius": {
+            "signal": "if(selected && selected.continent == datum.continent, if(width >= height, height, width) / 2 * 1.05 * 0.65, if(width >= height, height, width) / 2 * 0.65)"
+          },
+          "theta": {"signal": "(datum['startAngle'] + datum['endAngle'])/2"},
+          "fill": {"value": "#FFFFFF"},
+          "fontSize": {"value": 12},
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"}
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {"data": "table"},
+      "encode": {
+        "enter": {
+          "fill": {"value": "#525252"},
+          "fontSize": {"value": 12}
+        },
+        "update": {
+          "x": {
+            "signal": "datum['Country/Territory'] === 'Pakistan' ? (width / 2) + (if(width >= height, height, width) / 2 * 0.9) * cos((datum.startAngle + datum.endAngle) / 2) : datum['Country/Territory'] === 'Bangladesh' ? (width / 2) + (if(width >= height, height, width) / 2 * 0.9) * cos((datum.startAngle + datum.endAngle) / 2) : 0"
+          },
+          "y": {
+            "signal": "datum['Country/Territory'] === 'Brazil' ? (height / 2) + (if(width >= height, height, width) / 2 * 0.9) * sin((datum.startAngle + datum.endAngle) / 2) : datum['Country/Territory'] === 'Russia' ? (height / 2) + (if(width >= height, height, width) / 2 * 0.9) * sin((datum.startAngle + datum.endAngle) / 2) : 0"
+          },
+          "text": {
+            "signal": "datum['Country/Territory'] === 'Russia' ? 'Russia has the largest Area' : datum['Country/Territory'] === 'Bangladesh' ? 'Bangladesh has the smallest Area' : ''"
+          },
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "opacity": {
+            "signal": "datum['Country/Territory'] === 'Russia' || datum['Country/Territory'] === 'Bangladesh' ? 1 : 0"
+          },
+          "fontWeight": {"value": "bold"}
+        }
+      }
+    }
+    
+  ]
+}

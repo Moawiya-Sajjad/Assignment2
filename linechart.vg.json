@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Trends of Population",
+    "fontSize": 18,
+    "fontWeight": "bold",
+    "anchor": "middle",
+    "dy": -10
+  },
+  "width": 450,
+  "height": 500,
+  "data": {
+    "url": "data/worldpopulation.csv"
+  },
+  "params": [{
+    "name": "Continent_selection",
+    "bind": {
+      "input": "select",
+      "options": [null, "North America", "South America", "Europe", "Africa", "Asia", "Oceania"],
+      "labels": ["Show All", "North America", "South America", "Europe", "Africa", "Asia", "Oceania"],
+      "name": "Continent Selection: "
+    }
+  }],
+  "transform": [{
+      "fold": ["1970 Population", "1980 Population", "1990 Population", "2000 Population", "2010 Population", "2015 Population", "2020 Population", "2022 Population"],
+      "as": ["Year", "Population"]
+    },
+    {
+      "aggregate": [{
+        "op": "sum",
+        "field": "Population",
+        "as": "TotalPopulation"
+      }],
+      "groupby": ["Year", "Continent"]
+    },
+    {
+      "calculate": "replace(datum.Year, ' Population', '')",
+      "as": "Year"
+    },
+    {
+      "filter": "Continent_selection == null || datum.Continent == Continent_selection"
+    }
+  ],
+  "layer": [{
+      "mark": "line",
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "title": "Year",
+          "axis": {
+            "labelAngle": 0,
+            "grid": false,
+            "labelFontSize": 14,
+            "titleFontSize": 18,
+            "labelFont": "Times New Roman",
+            "titleFont": "Times New Roman"
+          }
+        },
+        "y": {
+          "field": "TotalPopulation",
+          "type": "quantitative",
+          "title": "Total Population",
+          "axis": {
+            "grid": false,
+            "labelFontSize": 14,
+            "titleFontSize": 18,
+            "labelFont": "Times New Roman",
+            "titleFont": "Times New Roman"
+          }
+        },
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "title": "Continent"
+        },
+        "tooltip": [ 
+          {
+            "field": "Continent",
+            "type": "nominal",
+            "title": "Continent"
+          },
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "TotalPopulation",
+            "type": "quantitative",
+            "title": "Total Population",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Year": "1980",
+            "TotalPopulation": 3000000000,
+            "Note": "Asia has the most rapid growth over the 52 years"
+          },
+          {
+            "Year": "1990",
+            "TotalPopulation": 50000000,
+            "Note": "Oceania population growth remains gradual"
+          }
+        ]
+      },
+      "transform": [
+        {
+          "filter": "Continent_selection == null"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5,
+        "dy": -10,
+        "fontSize": 12,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year"
+          },
+          "scale": {
+            "padding": 1.5
+          }
+        },
+        "y": {
+          "field": "TotalPopulation",
+          "type": "quantitative",
+          "axis": {
+            "title": "Total Population"
+          }
+        },
+        "text": {
+          "field": "Note",
+          "type": "nominal"
+        },
+        "angle": {
+          "field": "Note",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Asia has the most rapid growth over the 52 years",
+              "Oceania population growth remains gradual"
+            ],
+            "range": [320, 0]
+          }
+        }
+      }
+    }
+    
+    
+  ]
+}

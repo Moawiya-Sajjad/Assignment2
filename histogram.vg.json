@@ -1,0 +1,99 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "data/worldpopulation.csv"
+  },
+  "width": 600,
+  "height": 400,
+  "background": "white",
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "color": "#4c78a8"
+      },
+      
+      "transform": [
+        {
+          "filter": "datum['Growth Rate'] > 0.93 && datum['Growth Rate'] < 1.05"
+        },
+        {
+          "bin": {
+            "step": 0.005
+          },
+          "field": "Growth Rate",
+          "as": "growthRateBin"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "growthRateBin",
+          "bin": "binned",
+          "title": "Growth Rate",
+          "axis": {
+            "tickMinStep": 0.005,
+            "grid": false,
+            "labelFontSize": 14,
+            "titleFontSize": 16,
+            "labelFont": "Times New Roman"
+          },
+          "scale": {
+            "domain": [0.975, 1.05]
+          }
+        },
+        "x2": {
+          "field": "growthRateBin_end"
+        },
+        "y": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "title": "Number of Countries",
+          "axis": {
+            "grid": false,
+            "labelFontSize": 14,
+            "titleFontSize": 16,
+            "labelFont": "Times New Roman"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "growthRateBin", 
+            "title": "Growth Rate Start", 
+            "type": "quantitative"
+          },
+          {
+            "field": "growthRateBin_end", 
+            "title": "Growth Rate End", 
+            "type": "quantitative"
+          },
+          {
+            "aggregate": "count", 
+            "type": "quantitative", 
+            "title": "Number of Countries"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontWeight": "bold",
+        "fontSize": 15,
+        "color": "black"
+      },
+      "encoding": {
+        "text": {
+          "value": "48 countries have growth rate between 1.005 to 1.01"
+        },
+        "x": {
+          "value": 10
+        },
+        "y": {
+          "value": 10
+        }
+      }
+    }
+  ]
+}

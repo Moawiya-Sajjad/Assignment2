@@ -1,0 +1,226 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #E5E7EB;
+}
+
+p {
+    line-height: 1.6;
+}
+
+.container, .charts-container {
+    padding: 20px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;  
+    margin: 0 auto; 
+    background-color: #FFFFFF;
+}
+
+h1 {
+    color: black;
+    margin-bottom: 20px;
+    text-decoration: underline;
+    font-size: 36px;
+    font-family: serif;
+}
+
+.description{
+    color: black;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-family: serif;
+    text-align: center;
+}
+
+
+.header-icon {
+    height: 50px; 
+    width: auto; 
+    margin-right: 10px; 
+    vertical-align: middle; 
+}
+
+
+#map {
+    display: flex;
+    justify-content: center; 
+}
+
+.para-map {
+    text-align: center;
+    font-family: serif;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.charts-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    margin: 0 auto; 
+    background-color: #FFFFFF;
+}
+
+.header-continent {
+    font-family: serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.continent-icon {
+    height: 50px; 
+    width: auto; 
+    margin-right: 10px; 
+    vertical-align: middle;
+}
+
+#linechart, #stackedbarchart {
+    flex: 2;  
+    margin: 10px 0; 
+    box-sizing: border-box;
+}
+
+
+.chart-with-description {
+    font-family: serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center; 
+    width: 100%; 
+    margin-bottom: 20px;
+}
+
+.chart-description {
+    flex: 1;  
+    margin-right: 20px;  
+    background-color: #E8EAF6;
+    padding: 10px 20px; 
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);  
+    border-radius: 5px;
+}
+
+.chart-description:hover {
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+}
+
+
+.donut-charts-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#donutchart, #donutchart2 {
+    flex: 1;  
+    margin: 0 10px; 
+    box-sizing: border-box; 
+}
+
+.header-area{
+    font-family: serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.para-donut{
+    text-align: center;
+    font-family: serif;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+.chart-container {
+    width: 100%;
+}
+
+#bumpchart{
+    margin-left: 300px;
+    margin-bottom: 50px;
+}
+
+#slopechart{
+    margin-left: 280px;
+}
+
+.header-bump{
+    font-family: serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.chart-with-description-right {
+    display: flex;
+    align-items: center; 
+    width: 100%; 
+    margin-bottom: 20px;
+}
+
+.chart-with-description-right .chart-description {
+    flex: 1;  
+    margin-left: 20px;  
+    background-color: #E8EAF6;
+    padding: 10px 20px; 
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);  
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: serif;
+}
+
+.chart-with-description-right .chart-description:hover {
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.15);
+    transform: scale(1.02);
+}
+
+#bumpchart, #slopechart {
+    flex: 2;  
+    margin: 10px 0; 
+    box-sizing: border-box;
+}
+
+
+.histogram-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.header-histogram{
+font-family: serif;
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 10px;
+text-decoration: underline;
+}
+
+.para-histogram{
+    text-align: center;
+    font-family: serif;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+.end{
+    text-align: center;
+    font-family: serif;
+    font-size: 24px;
+    margin-bottom: 50px;
+    color:chocolate;
+}
+    

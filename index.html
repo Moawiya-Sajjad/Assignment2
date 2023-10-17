@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Vega-Lite Bar Chart</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.12.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.1"></script>
+    <script src = "map.js"></script>
+    <link rel="stylesheet" href="map.css">
+
+    </head>
+
+    <body>
+      <div class="container">
+        <h1>Our Growing World: Population Milestones and Projections
+            <img src="3179 title img.png" alt="World Population" class="header-icon">
+        </h1>
+        <p class = "description">Dive into the dynamic story of our world's population evolution, spanning over five decades. This visualization unveils the ebb and flow of global demographics, shedding light on key milestones and shifts that have shaped our planet's human landscape. From the turning points of the 20th century to the projections for the 21st, witness the fascinating journey of humanity's growth and distribution.</p>
+        <div id="map"></div>
+        <p class="para-map">
+            The <strong>map</strong> paints a tale of global population in 2022. <strong>Deeper blue</strong> signify dense regions like <strong>Asia</strong>, especially <strong>China</strong> and <strong>India</strong>. <strong>Africa</strong> varies, with central areas more populated. <strong>North America</strong>, home to the <strong>US</strong> and <strong>Canada</strong>, stands mid-range, while <strong>South America</strong> displays diversity, spotlighting populous <strong>Brazil</strong>. <strong>Europe</strong> shows a west-central density contrasted by quieter east and north. <strong>Oceania</strong>, especially Australia's heart, remains sparsely populated.
+        </p>
+      </div>
+      
+      <div class="charts-container">
+        <p class="header-continent">Population by continent (1970-2022) <img src="continent.png" alt="Continents" class="continent-icon"></p>
+        <div class="chart-with-description">
+            <div id="linechart"></div>
+            <div class="chart-description">
+                <p>The line chart shows the <strong>trend</strong> of population by continents over the years, <strong>Asia</strong> has been consistently the <strong>highest</strong> while <strong>Europe</strong> was <strong>second</strong> in 1970 and 1980 but <strong>dropped</strong> to <strong>third</strong> by <strong>Africa</strong>, rest have shown just <strong>gradual</strong> increase.</p>
+            </div>
+        </div>
+        <div class="chart-with-description">
+            <div id="stackedbarchart"></div>
+            <div class="chart-description">
+                <p>This stacked bar chart traces population distributions across continents. <strong>Asia</strong> dominates in size and consistent growth, followed by <strong>Africa's</strong> recent rapid rise. <strong>Europe</strong> and <strong>North America</strong> remain stable, while <strong>South America</strong> grows steadily. <strong>Oceania's</strong> subtle increase is dwarfed by larger continents. The chart highlights <strong>Asia</strong> and <strong>Africa's</strong> major contribution to the global growth, pushing towards <strong>8 billion</strong> by 2022.</p>
+            </div>
+        </div>
+        <p class="header-area">Comparison of Area(km²) and Density(per km²) of top 10 countries</p>
+        <div class="donut-charts-container">
+          <div id="donutchart"></div>
+          <div id="donutchart2"></div>
+      </div>
+      <p class="para-donut"><strong>Russia</strong> leads in area, accounting for 31.78% among the top ten countries. In contrast, <strong>Bangladesh</strong>, with the smallest landmass, boasts the highest density at 46.01%, reflecting its dense population. Similarly, India and Pakistan have significant densities, indicative of the South Asian population concentration. <strong>Brazil</strong>, with its vast land, has the least density among these countries.</p>
+      
+      <p class="header-bump">Progression of Top 10 countries since 1970</p>
+      <div class="chart-container">
+      <div class="chart-with-description-right">
+        <div class="chart-description">
+          <p>The bump chart tracks population changes from <strong>1970 to 2022</strong>. It highlights <strong>China</strong> and <strong>India's</strong> significant growth, almost converging by 2022, in contrast to countries like <strong>USA, Brazil, and Russia</strong>.</p>
+        </div>
+        <div id="bumpchart"></div>
+      </div>
+      <div class="chart-with-description-right">
+        <div class="chart-description">
+          <p>The slope chart displays difference in <strong>top 10 country's</strong> population directly from <strong>1970 to 2022</strong>. <strong>China</strong> and <strong>India</strong> show steep growth, with others like <strong>U.S.</strong> and <strong>Brazil</strong> growing at varied rates.</p>
+        </div>
+        <div id="slopechart"></div>
+      </div>
+      </div>
+      <p class="header-histogram">Population Growth Rate</p>
+      <div class="histogram-container">
+        <div id="histogram"></div>
+      </div>
+      <p class="para-histogram">The histogram shows a <strong>dominant interval</strong> between 1.005 to 1.01 with 48 countries. There's a noticeable <strong>decline</strong> for countries below a 1 growth rate, especially around 0.975. On the higher side, a peak at <strong>1.015</strong> signifies 34 countries, but rates beyond 1.02 are rare. The general trend showcases a <strong>bell-shaped curve skewed to the right</strong>, indicating a lean towards higher growth rates. Poland has the highest growth rate, while, Latvia, Bosnia American Somoa e.t.c has the lowest growth rates</p>
+      <p class="end">Moawiya Sajjad Warraich | FIT3179</p>
+    </div>
+
+    
+  </body>  
+    
+  </html>
